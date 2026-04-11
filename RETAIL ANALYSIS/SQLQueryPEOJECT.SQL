@@ -14,20 +14,14 @@ inner join login_logsp$ L on T.fk_order_id = L.user_id
 
 /* no_login on the par day  , qu 1*/
 
-   select convert(date,login_time) as LOGIN_DATE ,
-   count(distinct[login_log_id]) 
-   as daily_logins from login_logsp$
-   group by convert(date,login_time) 
-   order by 1
-
-
-select convert(date,login_time) as no_date , count(distinct[login_log_id]) as daily_logins from login_logsp$
-where convert (date,login_time)between '2021-07-05' and '2022-07-30'
-group by convert(date,login_time) 
-order by 1
-
-SELECT DAY(LOGIN_TIME) AS LOGIN_DATE , COUNT(login_log_id) AS LOGIN_COUNT FROM LOGIN_LOGSP$
-GROUP BY DAY(LOGIN_TIME);
+SELECT 
+    CAST(login_time AS DATE) AS login_date,
+    COUNT(DISTINCT login_log_id) AS daily_logins
+FROM login_logsp$
+WHERE login_time >= '2021-07-05'
+  AND login_time < '2022-07-31'
+GROUP BY CAST(login_time AS DATE)
+ORDER BY login_date;
 
 /* daily trend of login and trand conversion rate*/
 
