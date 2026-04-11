@@ -32,8 +32,17 @@ ORDER BY login_date;
 
 
 -- daily conversion rate 
-select count(login_log_id) 
-
+SELECT 
+    CAST(l.login_time AS DATE) AS login_date,
+    COUNT(DISTINCT l.user_id) AS total_users,
+    COUNT(DISTINCT o.fk_buyer_id) AS buyers,
+    COUNT(DISTINCT o.fk_buyer_id) * 1.0 / 
+    COUNT(DISTINCT l.user_id) AS conversion_rate
+FROM login_logsp$ l
+LEFT JOIN [sales_orders (1)$] o
+    ON l.user_id = o.fk_buyer_id
+GROUP BY CAST(l.login_time AS DATE)
+ORDER BY login_date;
 
 -- data for july 2021
 select  count(user_id)from login_logsp$
