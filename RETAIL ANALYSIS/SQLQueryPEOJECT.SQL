@@ -46,7 +46,7 @@ LEFT JOIN sales_orders S
 
 
 --KPI 3: Total Revenue
-   ===================================================== */
+   /*===================================================== */
 SELECT 
     SUM(I.price * I.quantity) AS total_revenue
 FROM sales_orders S
@@ -55,7 +55,7 @@ JOIN sales_orders_items I
 
 
 --KPI 4: Total Orders
-   ===================================================== */
+  /* ===================================================== */
 SELECT 
     COUNT(DISTINCT order_id) AS total_orders
 FROM sales_orders;
